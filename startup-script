@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -o errexit
+
+cat > /etc/default/travis-worker <<EOF
+export TRAVIS_WORKER_PROVIDER_NAME="gce"
+export TRAVIS_WORKER_POOL_SIZE="___POOL_SIZE___"
+EOF
+
+chown travis:travis /etc/default/travis-worker
+chmod 0640 /etc/default/travis-worker
+
+restart travis-worker
