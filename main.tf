@@ -1,5 +1,14 @@
 provider "google" {}
 
+resource "template_file" "worker_cloud_init" {
+  filename = "cloud-init/travis-worker-${var.site}-${var.environment}"
+  count = "${var.instance_count}"
+  vars {
+    pool_size = "${var.pool_size}"
+    number = "${count.index}"
+  }
+}
+
 resource "google_compute_instance" "worker" {
   count = "${var.instance_count}"
   name = "travis-worker-${var.site}-${var.environment}-${count.index}"
@@ -19,5 +28,5 @@ resource "google_compute_instance" "worker" {
     }
   }
 
-  metadata_startup_script = "${replace(file(\"travis-worker-cloud-init\"), \"___POOL_SIZE___\", \"${var.pool_size}\")}"
+  metadata_startup_script = "${element(template_file.worker_cloud_init.*.rendered, count.index)}"
 }

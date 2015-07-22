@@ -3,7 +3,7 @@ set -o errexit
 
 cat > /etc/default/travis-worker <<EOF
 export TRAVIS_WORKER_PROVIDER_NAME="gce"
-export TRAVIS_WORKER_POOL_SIZE="___POOL_SIZE___"
+export TRAVIS_WORKER_POOL_SIZE="${pool_size}"
 EOF
 
 chown travis:travis /etc/default/travis-worker
