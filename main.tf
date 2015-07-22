@@ -19,5 +19,5 @@ resource "google_compute_instance" "worker" {
     }
   }
 
-  metadata_startup_script = "${replace(file(\"startup-script\"), \"___POOL_SIZE___\", \"${var.pool_size}\")}"
+  metadata_startup_script = "${replace(file(\"travis-worker-cloud-init\"), \"___POOL_SIZE___\", \"${var.pool_size}\")}"
 }
