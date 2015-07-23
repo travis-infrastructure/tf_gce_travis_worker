@@ -1,7 +1,7 @@
 provider "google" {}
 
 resource "template_file" "worker_cloud_init" {
-  filename = "cloud-init/travis-worker-${var.site}-${var.environment}"
+  filename = "cloud-init/travis-worker-gce-${var.site}-${var.environment}"
   count = "${var.instance_count}"
   vars {
     pool_size = "${var.pool_size}"
@@ -11,7 +11,7 @@ resource "template_file" "worker_cloud_init" {
 
 resource "google_compute_instance" "worker" {
   count = "${var.instance_count}"
-  name = "travis-worker-${var.site}-${var.environment}-${count.index}"
+  name = "travis-worker-gce-${var.site}-${var.environment}-${count.index}"
   machine_type = "${var.machine_type}"
   zone = "${var.zone}"
   tags = ["worker", "${var.environment}", "${var.site}"]
