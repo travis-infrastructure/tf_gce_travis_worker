@@ -2,10 +2,6 @@ variable "instance_count" {
   default = 1
 }
 
-variable "pool_size" {
-  default = 1
-}
-
 variable "environment" {}
 
 variable "site" {}

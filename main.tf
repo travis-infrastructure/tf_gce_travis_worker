@@ -4,7 +4,6 @@ resource "template_file" "worker_cloud_init" {
   filename = "cloud-init/travis-worker-gce-${var.site}-${var.environment}"
   count = "${var.instance_count}"
   vars {
-    pool_size = "${var.pool_size}"
     number = "${count.index + 1}"
   }
 }
