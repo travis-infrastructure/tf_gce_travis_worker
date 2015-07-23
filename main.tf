@@ -5,13 +5,13 @@ resource "template_file" "worker_cloud_init" {
   count = "${var.instance_count}"
   vars {
     pool_size = "${var.pool_size}"
-    number = "${count.index}"
+    number = "${count.index + 1}"
   }
 }
 
 resource "google_compute_instance" "worker" {
   count = "${var.instance_count}"
-  name = "travis-worker-gce-${var.site}-${var.environment}-${count.index}"
+  name = "travis-worker-gce-${var.site}-${var.environment}-${count.index + 1}"
   machine_type = "${var.machine_type}"
   zone = "${var.zone}"
   tags = ["worker", "${var.environment}", "${var.site}"]
