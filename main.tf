@@ -15,6 +15,10 @@ resource "google_compute_instance" "worker" {
   zone = "${var.zone}"
   tags = ["worker", "${var.environment}", "${var.site}"]
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   disk {
     image = "${var.image}"
     type = "pd-ssd"
