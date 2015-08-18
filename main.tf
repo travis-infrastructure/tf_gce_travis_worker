@@ -4,10 +4,6 @@ resource "template_file" "worker_cloud_init" {
   filename = "cloud-init/travis-worker-gce-${var.site}-${var.environment}"
   count = "${var.instance_count}"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
   vars {
     number = "${count.index + 1}"
   }
@@ -19,10 +15,6 @@ resource "google_compute_instance" "worker" {
   machine_type = "${var.machine_type}"
   zone = "${var.zone}"
   tags = ["worker", "${var.environment}", "${var.site}"]
-
-  lifecycle {
-    create_before_destroy = true
-  }
 
   disk {
     image = "${var.image}"
