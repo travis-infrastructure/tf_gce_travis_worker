@@ -1,14 +1,5 @@
 provider "google" {}
 
-resource "template_file" "worker_cloud_init" {
-  filename = "cloud-init/travis-worker-gce-${var.site}-${var.environment}"
-  count = "${var.instance_count}"
-
-  vars {
-    number = "${count.index + 1}"
-  }
-}
-
 resource "google_compute_instance" "worker" {
   count = "${var.instance_count}"
   name = "travis-worker-gce-${var.site}-${var.environment}-${count.index + 1}"
@@ -31,5 +22,5 @@ resource "google_compute_instance" "worker" {
     }
   }
 
-  metadata_startup_script = "${element(template_file.worker_cloud_init.*.rendered, count.index)}"
+  metadata_startup_script = "cloud-init/travis-worker-gce-${var.site}-${var.environment}"
 }
