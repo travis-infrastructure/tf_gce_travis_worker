@@ -22,5 +22,5 @@ resource "google_compute_instance" "worker" {
     }
   }
 
-  metadata_startup_script = "${file(format("cloud-init/travis-worker-gce-%s-%s", var.site, var.environment))")}
+  metadata_startup_script = "${file(format("cloud-init/travis-worker-gce-%s-%s", var.site, var.environment))}"
 }
