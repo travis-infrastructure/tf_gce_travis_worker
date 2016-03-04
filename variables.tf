@@ -15,3 +15,5 @@ variable "zone" {
 }
 
 variable "image" {}
+
+variable "project" {}
