@@ -1,6 +1,4 @@
-provider "google" {
-  project = "${var.project}"
-}
+provider "google" {}
 
 resource "google_compute_instance" "worker" {
   count = "${var.instance_count}"
